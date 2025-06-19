@@ -1,0 +1,104 @@
+/* Basic Reset & Body Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Helvetica Neue', sans-serif;
+    overflow: hidden; /* Prevents scrollbars */
+}
+
+/* Main Flex Container */
+.container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Individual Product Panels */
+.product-panel {
+    flex: 1; /* Each panel takes up half the space */
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: #fdfdfd; /* Off-white background like in the video */
+    border-left: 1px solid #eee;
+}
+
+.product-panel:first-child {
+    border-left: none;
+}
+
+/* Static Images and Hover Videos */
+.product-panel .static-image,
+.product-panel .hover-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.product-panel .hover-video {
+    opacity: 0; /* Videos are hidden by default */
+}
+
+/* Hover effect to show video and hide static image */
+.product-panel:hover .hover-video {
+    opacity: 1;
+}
+
+.product-panel:hover .static-image {
+    opacity: 0;
+}
+
+/* Overlay for text and button */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows mouse events to pass through to the panel */
+}
+
+.new-label {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    color: #fffdfd;
+    font-family: serif;
+    font-size: 24px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.add-to-bag {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    color: #333;
+    padding: 15px 40px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    pointer-events: all; /* Makes the button itself clickable */
+    
+}
+
+/* Hover effect to show the button */
+.product-panel:hover .add-to-bag {
+    opacity: 1;
+}

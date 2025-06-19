@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Embodied Carbon Emissions Chart</title>
+    <link rel="stylesheet" href="graph.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main class="dashboard">
+        <div class="content">
+            <header class="dashboard-header">
+                <h1>EMBODIED <span class="accent-text">CARBON EMISSIONS</span></h1>
+                <p>Intensity measured by kgCO₂e/m²</p>
+            </header>
+
+            <div class="controls">
+                <div class="filters">
+                    <div class="filter-group">
+                        <span class="filter-label">Type</span>
+                        <button class="filter-btn" data-group="type" data-value="refurbishment">Refurbishment</button>
+                        <button class="filter-btn" data-group="type" data-value="new-build">New build</button>
+                        <button class="filter-btn active" data-group="type" data-value="all">All</button>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Status</span>
+                        <button class="filter-btn active" data-group="status" data-value="all">All</button>
+                        <button class="filter-btn" data-group="status" data-value="complete">Complete</button>
+                        <button class="filter-btn" data-group="status" data-value="estimate">Estimate</button>
+                    </div>
+                </div>
+
+                <div class="key">
+                    <div class="key-item">
+                        <span class="key-line key-line--dashed"></span>
+                        500 kgCO₂e/m² - Embodied Carbon Target 2030
+                    </div>
+                    <div class="key-item">
+                        <span class="key-line key-line--solid"></span>
+                        600 kgCO₂e/m² - Embodied Carbon Target 2025
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="y-axis">
+                    <span>1200</span>
+                    <span>1000</span>
+                    <span>800</span>
+                    <span>600</span>
+                    <span>400</span>
+                    <span>200</span>
+                    <span>0</span>
+                </div>
+                <div class="chart-area-wrapper">
+                    <div class="chart-area">
+                        <!-- Bars will be dynamically inserted here -->
+                        <div class="target-line" style="bottom: calc(500/1200 * 100%); border-style: dashed;"></div>
+                        <div class="target-line" style="bottom: calc(600/1200 * 100%); border-style: solid;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <a href="#" class="download-link">
+                    Download the data
+                    <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 15l-5-5h3V4h4v6h3l-5 5zm1 6c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"/></svg>
+                </a>
+            </footer>
+
+        </div>
+        
+        <div class="user-icon-wrapper">
+            <svg class="user-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4z"/></svg>
+        </div>
+
+    </main>
+    
+    <script src="graph.js"></script>
+</body>
+</html>

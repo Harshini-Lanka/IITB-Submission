@@ -1,0 +1,103 @@
+/* Basic Reset & Setup */
+body {
+    margin: 0;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    /* Ensure the body takes full viewport height */
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Main container for the animation */
+#customer-showcase {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Indicates the area is interactive */
+}
+
+/* Wrapper for all the drifting logos */
+.logo-cloud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Smooth transition for the hover effect */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                filter 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform, filter, opacity;
+}
+
+/* Individual logo styling */
+.logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px; /* Max-width */
+    height: auto;
+    opacity: 0.8;
+    will-change: transform; /* Hint for performance */
+}
+
+.logo svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    fill: white; /* Make all SVGs white */
+}
+
+/* "Meet our customers" button */
+.cta-button {
+    position: relative; /* To ensure it's on top of the logo-cloud */
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    background: rgba(26, 26, 26, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    -webkit-backdrop-filter: blur(10px);
+    color: #f0f0f0;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 999px; /* Pill shape */
+    
+    /* Initially hidden */
+    opacity: 0;
+    transform: scale(0.9);
+    pointer-events: none;
+    
+    /* Smooth transition for appearing/disappearing */
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out, background-color 0.2s ease;
+    will-change: opacity, transform;
+}
+
+.cta-button:hover {
+    background-color: rgba(36, 36, 36, 0.9);
+}
+
+/* --- THE HOVER INTERACTION --- */
+
+/* When hovering over the main container... */
+#customer-showcase:hover .logo-cloud {
+    /* ...the logos recede, blur, and fade out */
+    transform: scale(0.9);
+    filter: blur(6px);
+    opacity: 0.3;
+}
+
+#customer-showcase:hover .cta-button {
+    /* ...the button becomes visible and interactive */
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}

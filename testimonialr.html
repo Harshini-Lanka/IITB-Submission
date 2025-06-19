@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Sellers Animation</title>
+    <style>
+        /* --- FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+        /* --- BASIC SETUP & RESET --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #e0e0e0;
+            background-color: #100624;
+            overflow-x: hidden;
+        }
+        
+        /* --- GRADIENT BACKGROUND --- */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(94, 58, 180, 0.6), rgba(44, 26, 91, 0.2) 50%, transparent 70%);
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+
+        /* --- ANIMATION CONTAINER SETUP --- */
+        .animation-container {
+            /* This height determines how much scroll distance is available for the animation */
+            height: 400vh; 
+            position: relative;
+        }
+
+        .sticky-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- HERO TEXT STYLING --- */
+        .hero-text {
+            text-align: center;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .hero-text .subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            color: #b0a3d4;
+            margin-bottom: 1rem;
+        }
+
+        .hero-text .main-title {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 500;
+            color: #d8cffc;
+            line-height: 1;
+        }
+
+        .main-title span {
+            display: inline-block; /* Allows transform to work */
+            transition: transform 0.1s linear;
+        }
+        
+        /* --- TESTIMONIALS GRID & CARDS --- */
+
+        .testimonials-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card {
+            position: absolute;
+            background: rgba(81, 48, 172, 0.75);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.2s, transform 0.1s linear;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            line-height: 1.6;
+        }
+        
+        .card.testimonial-card p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .card.testimonial-card .author {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            color: #c5b9e8;
+        }
+        
+        .card.image-card, .card.logo-card {
+             padding: 0;
+             overflow: hidden;
+        }
+        
+        .card.image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .card.logo-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1rem;
+            background: rgba(30, 20, 60, 0.75);
+        }
+        
+        .logo-card .watchem-logo {
+            width: 60px;
+            height: 60px;
+            position: relative;
+        }
+        .logo-card .watchem-logo .dot {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+        }
+        .logo-card .watchem-logo .center-dot { width: 20px; height: 20px; top: 20px; left: 20px;}
+        .logo-card .watchem-logo .small-dot { width: 8px; height: 8px; }
+        .logo-card .watchem-logo .dot-1 { top: 26px; left: -5px; }
+        .logo-card .watchem-logo .dot-2 { top: 26px; left: 57px; }
+        .logo-card .watchem-logo .dot-3 { top: -5px; left: 26px; }
+        .logo-card .watchem-logo .dot-4 { top: 57px; left: 26px; }
+        .logo-card .watchem-logo .dot-5 { top: 5px; left: 5px; }
+        .logo-card .watchem-logo .dot-6 { top: 5px; left: 47px; }
+        .logo-card .watchem-logo .dot-7 { top: 47px; left: 5px; }
+        .logo-card .watchem-logo .dot-8 { top: 47px; left: 47px; }
+
+        .logo-card .logo-text {
+            font-family: 'Space Mono', monospace;
+            letter-spacing: 2px;
+            color: #d8cffc;
+        }
+
+        /* Card Positioning (using variables for easy JS access) */
+        #card-1 { top: 10%; left: 5%; width: 30%; }
+        #card-2 { top: 55%; left: 15%; width: 25%; }
+        #card-3 { top: 20%; left: 65%; width: 30%; }
+        #card-4 { top: 65%; left: 60%; width: 25%; }
+        #card-5 { top: 60%; left: 40%; width: 15%; height: 25%; } /* Watchem Logo */
+        #card-6 { top: 5%; left: 40%; width: 20%; } /* Image */
+        #card-7 { top: 65%; left: -5%; width: 15%; } /* Image */
+        #card-8 { top: 5%; left: 85%; width: 20%; } /* Image */
+
+
+        /* --- PRICING SECTION --- */
+        .pricing-section {
+            background-color: #100624;
+            padding: 8rem 2rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .pricing-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem auto;
+        }
+
+        .pricing-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        
+        .pricing-header p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #b0a3d4;
+        }
+
+        .pricing-grid {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pricing-card {
+            background-color: #5130ac;
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            flex-basis: 280px;
+            flex-grow: 1;
+            max-width: 300px;
+            text-align: left;
+            border: 2px solid transparent;
+            position: relative;
+        }
+        
+        .pricing-card.popular {
+            border-color: #8c67ff;
+            transform: scale(1.05);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #d8cffc;
+            color: #3e2286;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .pricing-card h3 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .pricing-card .plan-orders {
+            font-size: 1rem;
+            color: #d8cffc;
+            margin: 0.5rem 0 1.5rem 0;
+        }
+        .pricing-card .plan-description {
+            font-size: 0.9rem;
+            color: #d8cffc;
+            line-height: 1.5;
+            min-height: 100px;
+        }
+        .pricing-card .price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 1.5rem 0 0.5rem 0;
+        }
+        .pricing-card .price-period {
+            font-family: 'Space Mono', monospace;
+            color: #d8cffc;
+        }
+
+        /* --- RESPONSIVENESS --- */
+        @media (max-width: 900px) {
+            .card {
+                padding: 1.5rem;
+            }
+             #card-1 { top: 5%; left: 5%; width: 40%; }
+             #card-2 { top: 50%; left: 5%; width: 40%; }
+             #card-3 { top: 15%; left: 55%; width: 40%; }
+             #card-4 { top: 60%; left: 55%; width: 40%; }
+             #card-5 { display: none; } /* Hide some cards on smaller screens */
+             #card-6 { top: 35%; left: 45%; width: 25%; }
+             #card-7 { display: none; }
+             #card-8 { top: 5%; left: 75%; width: 20%;}
+        }
+        
+        @media (max-width: 600px) {
+            .hero-text .main-title { font-size: 15vw; }
+            .card {
+                position: relative;
+                width: 90% !important;
+                left: 5% !important;
+                top: 0 !important;
+                margin-bottom: 1rem;
+                transform: none !important;
+                opacity: 1 !important;
+            }
+            .testimonials-grid {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 25vh; /* Push cards down to see title */
+            }
+            .animation-container {
+                height: auto; /* Let content determine height */
+            }
+            .sticky-container {
+                position: relative; /* Disable sticky on mobile */
+                height: auto;
+            }
+            .hero-text {
+                position: relative;
+                padding-top: 30vh;
+            }
+            /* JS will be disabled on mobile for simplicity, so this is the static fallback */
+            .main-title span { transform: none !important; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="animation-container">
+        <div class="sticky-container">
+            <div class="hero-text">
+                <p class="subtitle">● Customer Testimonials</p>
+                <h1 class="main-title">
+                    <span id="happy-text">Happy</span>
+                    <span id="sellers-text">Sellers</span>
+                </h1>
+            </div>
+
+            <div class="testimonials-grid">
+                
+                <div id="card-1" class="card testimonial-card" data-start="0.1" data-end="0.6" data-speed="1.2">
+                    <p>"For a growing brand, having predictable pricing makes a big difference - especially when you're watching your margins closely. Amzigo's order-based plans meant we weren't paying more just to access core tools. The platform has taken a lot off our plate. The automated feedback system runs quietly in the background, and we've noticed our ratings stay more consistent without needing to chase anything manually. It's been a great fit for our team and a time-saver we didn't know we needed."</p>
+                    <div class="author">● Watchem - UK Amazon Seller</div>
+                </div>
+
+                <div id="card-2" class="card testimonial-card" data-start="0.4" data-end="0.9" data-speed="1">
+                    <p>"I run a small Amazon store on the side, and honestly, I don't have time to check performance every day. Amzigo shows me what's happening without needing to dig through reports. I really like how it sends out follow-up requests for feedback automatically, because that's something I always used to forget. It makes a difference knowing that's taken care of and still within Amazon's rules. It just helps me run my store more confidently."</p>
+                    <div class="author">● Sophie Wilson - USA Amazon Seller</div>
+                </div>
+
+                <div id="card-3" class="card testimonial-card" data-start="0.25" data-end="0.75" data-speed="1.1">
+                    <p>"The tools are simple enough for a beginner but powerful once you grow. I didn't even know review requests could be automated until I found Amzigo. Now they just go out on their own, and I can spend more time learning how to improve my store instead of trying to keep up."</p>
+                    <div class="author">● Emily James - USA Amazon Seller</div>
+                </div>
+                
+                <div id="card-4" class="card image-card" data-start="0.5" data-end="1.0" data-speed="0.9">
+                     <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Happy seller">
+                </div>
+
+                <div id="card-5" class="card logo-card" data-start="0.3" data-end="0.8" data-speed="0.8">
+                     <div class="watchem-logo">
+                        <div class="dot center-dot"></div>
+                        <div class="dot small-dot dot-1"></div>
+                        <div class="dot small-dot dot-2"></div>
+                        <div class="dot small-dot dot-3"></div>
+                        <div class="dot small-dot dot-4"></div>
+                        <div class="dot small-dot dot-5"></div>
+                        <div class="dot small-dot dot-6"></div>
+                        <div class="dot small-dot dot-7"></div>
+                        <div class="dot small-dot dot-8"></div>
+                     </div>
+                     <div class="logo-text">WATCHEM</div>
+                </div>
+
+                <div id="card-6" class="card image-card" data-start="0.05" data-end="0.5" data-speed="1.3">
+                     <img src="https://images.pexels.com/photos/3760917/pexels-photo-3760917.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Happy seller">
+                </div>
+
+                <div id="card-7" class="card image-card" data-start="0.55" data-end="0.95" data-speed="1.1">
+                     <img src="https://images.pexels.com/photos/837358/pexels-photo-837358.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Happy seller">
+                </div>
+                 
+                <div id="card-8" class="card image-card" data-start="0.15" data-end="0.65" data-speed="1">
+                     <img src="https://images.pexels.com/photos/3762800/pexels-photo-3762800.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Happy seller">
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <section class="pricing-section">
+        <div class="pricing-header">
+            <h2>Plans based on your monthly order volume.</h2>
+            <p>Whether you're just starting out or scaling up, we have a plan that fits your growth and unlocks the full power of our all-in-one platform. Plans start from just $15.99 per month.</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Sellers</h3>
+                <p class="plan-orders">Up to 500 orders per month</p>
+                <p class="plan-description">For new sellers and individuals getting started on Amazon.</p>
+                <div class="price">$15.99 <span class="price-period">per month</span></div>
+            </div>
+            <div class="pricing-card popular">
+                <div class="popular-badge">MOST POPULAR</div>
+                <h3>Growth</h3>
+                <p class="plan-orders">Up to 2,500 orders per month</p>
+                <p class="plan-description">Are growing and scaling operations. Ideal for sellers who are expanding their product range and need more review automation.</p>
+                <div class="price">$29.99 <span class="price-period">per month</span></div>
+            </div>
+            <div class="pricing-card">
+                <h3>Pro</h3>
+                <p class="plan-orders">Up to 10,000 orders per month</p>
+                <p class="plan-description">Have an established business with consistent sales. Great for professional Amazon sellers who need detailed insights and performance tracking.</p>
+                <div class="price">$59.99 <span class="price-period">per month</span></div>
+            </div>
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <p class="plan-orders">30,000+ orders per month</p>
+                <p class="plan-description">Run a high-volume business. Designed for power sellers who need advanced automation and dedicated support.</p>
+                <div class="price">$119.99 <span class="price-period">per month</span></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Check if user is on a mobile device
+            if (window.innerWidth <= 600) {
+                return; // Exit if mobile, CSS handles the static layout
+            }
+            
+            const animationContainer = document.querySelector('.animation-container');
+            const happyText = document.getElementById('happy-text');
+            const sellersText = document.getElementById('sellers-text');
+            const cards = document.querySelectorAll('.testimonials-grid .card');
+
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                const containerTop = animationContainer.offsetTop;
+                const containerHeight = animationContainer.offsetHeight;
+                const viewportHeight = window.innerHeight;
+
+                // Calculate total scrollable distance for the animation
+                const scrollableDistance = containerHeight - viewportHeight;
+                
+                // Calculate scroll progress (0 to 1)
+                let progress = (scrollY - containerTop) / scrollableDistance;
+                progress = Math.max(0, Math.min(1, progress)); // Clamp between 0 and 1
+
+                // --- Animate Hero Text ---
+                const maxTextTranslate = window.innerWidth / 4; // How far the text moves
+                happyText.style.transform = `translateX(${-progress * maxTextTranslate}px)`;
+                sellersText.style.transform = `translateX(${progress * maxTextTranslate}px)`;
+                
+                // --- Animate Cards ---
+                cards.forEach(card => {
+                    const start = parseFloat(card.dataset.start);
+                    const end = parseFloat(card.dataset.end);
+                    const speed = parseFloat(card.dataset.speed);
+
+                    // Check if the card should be visible
+                    if (progress >= start && progress <= end) {
+                        // Calculate progress specific to this card's animation lifetime
+                        const cardProgress = (progress - start) / (end - start);
+
+                        const initialY = 100; // Start 100px down
+                        const finalY = -100; // End 100px up
+                        
+                        // Apply speed multiplier to the vertical movement
+                        const currentY = initialY + (finalY - initialY) * cardProgress * speed;
+
+                        card.style.opacity = 1;
+                        card.style.transform = `translateY(${currentY}px) scale(1)`;
+
+                    } else if (progress > end) {
+                        // Keep card at its end state after its animation is done
+                        const finalY = -100 * speed;
+                        card.style.opacity = 0; // fade it out
+                        card.style.transform = `translateY(${finalY}px) scale(0.9)`;
+                        
+                    } else {
+                        // Card is not yet visible or has been scrolled past (upwards)
+                        card.style.opacity = 0;
+                        card.style.transform = `translateY(100px) scale(0.9)`;
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
