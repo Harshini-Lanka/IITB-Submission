@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Hero Section - Updated</title>
+    <link rel="stylesheet" href="home2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+
+        <!-- Static Background Elements -->
+        <div class="bg-shape shape-semicircle"></div>
+        <div class="bg-shape shape-square-textured"></div>
+        <div class="bg-shape shape-red-circle"></div>
+
+        <header class="top-bar">
+            <div class="social-proof">★ 4.8 rating on <strong>Capterra</strong></div>
+            <div class="social-proof">★ 4.8 rating on <img src="https://i.imgur.com/G5g2uJk.png" alt="G2 Logo" class="g2-logo"></div>
+            <div class="social-proof">★ 350+ reviews on <img src="https://i.imgur.com/gSaeZp1.png" alt="Xero Logo" class="company-logo"></div>
+            <div class="social-proof">★ 550+ reviews on <img src="https://i.imgur.com/s1mH5Tf.png" alt="QuickBooks Logo" class="company-logo"></div>
+        </header>
+
+        <main class="hero-section">
+            <h1 class="main-headline">
+                Create 
+                <span class="hover-trigger" data-target="reports">reports</span>, 
+                <span class="hover-trigger" data-target="forecasts">forecasts</span>, 
+                <span class="hover-trigger" data-target="dashboards">dashboards</span> & 
+                <span class="hover-trigger" data-target="consolidations">consolidations</span>
+            </h1>
+
+            <p class="sub-headline">
+                <span class="sparkles">✨</span> Now with AI-insights
+            </p>
+
+            <div class="cta-container">
+                <a href="#" class="cta-button">Start 14-day free trial &gt;</a>
+                <a href="#" class="secondary-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2ZM18 20H6V4H13V9H18V20Z" fill="currentColor"/></svg>
+                    See what we do
+                </a>
+            </div>
+        </main>
+        
+        <!-- Pop-up sections now live outside the main hero text flow -->
+        <div class="popup-wrapper">
+
+            <!-- Dashboards Popup -->
+            <div id="dashboards" class="popup-container">
+                <div class="card dashboard-expenses">
+                    <div class="card-header">
+                        <span>Expenses</span>
+                        <span>$56.2K</span>
+                        <div class="settings-icon">⚙️</div>
+                    </div>
+                    <div class="card-content donut-chart-container">
+                         <div class="donut-chart"></div>
+                         <div class="donut-legend">
+                             <div class="legend-item"><div class="dot c1"></div>Insurance</div>
+                             <div class="legend-item"><div class="dot c2"></div>Wages</div>
+                             <div class="legend-item"><div class="dot c3"></div>Rent</div>
+                             <div class="legend-item"><div class="dot c4"></div>Legal Expenses</div>
+                             <div class="legend-item"><div class="dot c5"></div>Other</div>
+                         </div>
+                    </div>
+                </div>
+                <div class="card dashboard-income">
+                    <div class="card-header">
+                        <div>
+                            <span>Total Income</span>
+                            <span class="change-down">↘ 36.5%</span>
+                        </div>
+                        <div class="settings-icon">⚙️</div>
+                    </div>
+                    <div class="card-subheader">$426.8K <span class="light-text">vs $672.5K total last year</span></div>
+                    <div class="card-content bar-chart-container">
+                        <div class="bar-chart">
+                            <div class="bar-group"><div class="bar-light" style="height: 40%;"></div><div class="bar-dark" style="height: 60%;"></div></div>
+                            <div class="bar-group"><div class="bar-light" style="height: 55%;"></div><div class="bar-dark" style="height: 80%;"></div></div>
+                            <div class="bar-group"><div class="bar-light" style="height: 20%;"></div><div class="bar-dark" style="height: 40%;"></div></div>
+                            <div class="bar-group"><div class="bar-light" style="height: 45%;"></div><div class="bar-dark" style="height: 70%;"></div></div>
+                            <div class="bar-group"><div class="bar-light" style="height: 30%;"></div><div class="bar-dark" style="height: 50%;"></div></div>
+                            <div class="bar-group"><div class="bar-light" style="height: 65%;"></div><div class="bar-dark" style="height: 90%;"></div></div>
+                            <div class="bar-group"><div class="bar-light" style="height: 25%;"></div><div class="bar-dark" style="height: 30%;"></div></div>
+                        </div>
+                         <div class="chart-labels"><span>Feb</span><span>Jan</span></div>
+                    </div>
+                </div>
+                <div class="card dashboard-cash">
+                     <div class="card-header">
+                        <span>Cash</span>
+                        <span class="change-up">↗ 202.9%</span>
+                        <div class="settings-icon">⚙️</div>
+                     </div>
+                     <div class="card-content cash-content">
+                        <span class="light-text">current</span>
+                        <span class="big-number">$288,721</span>
+                        <span class="light-text">prior last year</span>
+                        <span>$95,319</span>
+                     </div>
+                </div>
+            </div>
+
+            <!-- Reports Popup -->
+            <div id="reports" class="popup-container">
+                <div class="card report-overview">
+                    <div class="report-image"></div>
+                    <div class="report-title-section">
+                        <p>Edge Design Studio</p>
+                        <h2>Business overview report</h2>
+                        <p>August 2024</p>
+                    </div>
+                     <div class="report-logos">
+                         <span>ORG LOGO</span>
+                         <span>ENTITY LOGO</span>
+                     </div>
+                </div>
+                <div class="card report-comment">
+                     <div class="comment-header">
+                         <div class="avatar">M</div>
+                         <div>
+                             <strong>Mark Bosman</strong>
+                             <span class="light-text">a few seconds ago</span>
+                         </div>
+                     </div>
+                     <p>@Megan let's talk about a strategy to improve these metrics.</p>
+                     <div class="comment-actions">
+                         <div class="action-icon">@</div>
+                         <button>Reply</button>
+                     </div>
+                </div>
+                <div class="card report-send">
+                    <h4><span class="icon"></span> Send to</h4>
+                    <div class="grid-buttons">
+                        <button>PDF</button> <button>WhatsApp</button>
+                        <button>Word</button> <button>Slack</button>
+                        <button>Excel</button> <button>Teams</button>
+                        <button>Email</button> <button>Shared URL</button>
+                    </div>
+                </div>
+                <div class="card report-health">
+                    💚 90% Financial Health Score
+                </div>
+            </div>
+            
+            <!-- Forecasts Popup -->
+            <div id="forecasts" class="popup-container">
+                 <div class="card forecast-small forecast-today">🗓️ Today <br> <strong>$3,296</strong> <br> <small>1 invoice</small></div>
+                 <div class="card forecast-small forecast-next">🗓️ Next 8-30 days <br> <strong>$100,548</strong> <br> <small>3 invoices</small></div>
+                 <div class="card forecast-invoices">
+                    <div class="card-header">
+                       <h4>Invoices</h4>
+                       <div class="toggle"></div>
+                    </div>
+                    <div class="table-container">
+                      <!-- Simplified table -->
+                       <div class="table-row header"><div>Customer</div><div>Amount</div><div>Due</div><div>Status</div></div>
+                       <div class="table-row"><div>Cinderella</div><div>$3,000</div><div class="due-soon">23 Aug 2023</div><div class="status final">Final</div></div>
+                       <div class="table-row"><div>Judy Hopps</div><div>$3,296</div><div class="due-soon">24 Aug 2023</div><div class="status final">Final</div></div>
+                       <div class="table-row"><div>Aladdin</div><div>$49,026</div><div class="due-later">29 Sep 2023</div><div class="status draft">Draft</div></div>
+                    </div>
+                 </div>
+                 <div class="card forecast-small forecast-runway">💰 Cash runway <br> <strong>6 months</strong></div>
+                 <div class="card forecast-small forecast-overdue">❗ Overdue <br> <strong>$1,498</strong> <br> <small>1 invoice</small></div>
+                 <div class="card forecast-chart">
+                    <div class="forecast-bar-chart">
+                        <div class="axis y-axis"></div><div class="axis x-axis"></div>
+                        <div class="f-bar-group" style="left: 10%;"><div class="f-bar up" style="height: 30px;"></div><div class="f-bar down" style="height: 15px;"></div></div>
+                        <div class="f-bar-group" style="left: 20%;"><div class="f-bar up" style="height: 50px;"></div><div class="f-bar down" style="height: 20px;"></div></div>
+                        <div class="f-bar-group" style="left: 30%;"><div class="f-bar up" style="height: 40px;"></div><div class="f-bar down" style="height: 35px;"></div></div>
+                        <div class="f-bar-group" style="left: 40%;"><div class="f-bar up" style="height: 60px;"></div><div class="f-bar down" style="height: 25px;"></div></div>
+                        <div class="f-bar-group" style="left: 50%;"><div class="f-bar up" style="height: 20px;"></div><div class="f-bar down" style="height: 50px;"></div></div>
+                        <div class="f-bar-group" style="left: 60%;"><div class="f-bar up" style="height: 70px;"></div><div class="f-bar down" style="height: 30px;"></div></div>
+                        <div class="f-bar-group" style="left: 70%;"><div class="f-bar up" style="height: 45px;"></div><div class="f-bar down" style="height: 60px;"></div></div>
+                        <div class="f-bar-group" style="left: 80%;"><div class="f-bar up" style="height: 55px;"></div><div class="f-bar down" style="height: 40px;"></div></div>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- Consolidations Popup -->
+            <div id="consolidations" class="popup-container">
+                <div class="card consol-logos">
+                    <img src="https://i.imgur.com/s1mH5Tf.png" alt="QuickBooks Logo" class="consol-logo">
+                    <span class="plus">+</span>
+                    <img src="https://i.imgur.com/gSaeZp1.png" alt="Xero Logo" class="consol-logo">
+                    <span class="plus">+</span>
+                    <img src="https://i.imgur.com/w4pB2Yt.png" alt="Sage Logo" class="consol-logo">
+                </div>
+                <div class="org-chart">
+                    <div class="node top-node"><span>CU</span>Global Finance</div>
+                    <div class="connector-line" style="top: 50px; left: 50%; height: 40px;"></div>
+                    <div class="connector-line" style="top: 90px; left: 25%; width: 50%;"></div>
+                    <div class="connector-line" style="top: 90px; left: 25%; height: 40px;"></div>
+                    <div class="connector-line" style="top: 90px; right: 25%; height: 40px;"></div>
+                    
+                    <div class="node level-2" style="left: 0;"><span>US</span>US Branch</div>
+                    <div class="node level-2" style="right: 0;"><span>AU</span>AUS Branch</div>
+
+                    <div class="connector-line" style="top: 178px; left: 12.5%; height: 40px;"></div>
+                    <div class="connector-line" style="top: 218px; left: 6.25%; width: 12.5%;"></div>
+                    <div class="connector-line" style="top: 218px; left: 6.25%; height: 20px;"></div>
+                    <div class="connector-line" style="top: 218px; left: 18.75%; height: 20px;"></div>
+                    
+                    <div class="node level-3" style="left: 0;"><span>US</span>Texas</div>
+                    <div class="node level-3" style="left: 12.5%;"><span>US</span>California</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="home2.js"></script>
+</body>
+</html>
